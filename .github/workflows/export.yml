@@ -8,13 +8,18 @@ jobs:
   export:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      # Updated from @v4 to @v5 (or the latest version supporting Node 24)
+      - uses: actions/checkout@v5
+      
+      # Updated from @v5 to @v6
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
+          
       - run: pip install requests
+      
+      # Cleaned up the environment variables since they are no longer needed
       - run: python .github/scripts/export.py
         env:
           FIGMA_TOKEN: ${{ secrets.FIGMA_TOKEN }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: True
